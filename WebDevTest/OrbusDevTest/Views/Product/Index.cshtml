@@ -22,18 +22,21 @@
 <hr>
 <table class="table table-striped table-hover">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductKey)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StockLevel)
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>Product Name</th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductKey)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StockLevel)
+        </th>
+        <th>
+            Links
+        </th>
+    </tr>
     </thead>
     <tbody id="producttablebody">
         @foreach (var product in @Model)
@@ -88,19 +91,25 @@
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
-                        var appenddata1 = "";
-                        for (var i = 0; i < data.length; i++) {
-                            appenddata1 += "<option value = '" + data[i].Name + " '>" + data[i].Id + " </option>";
-                        }
-                        $("#subcategory").append(appenddata1);
+                        console.log(data);
                     }
                 });
             });
 
             $("#minstock").change(function () {
-               
+                var minStock = Number($("#minstock").val());
+                var sum = 0;
+                $('.stock').each(function () {
+                    var stockValue = $(this).find(".stockLevel").text();
+                    sum += Number(stockValue);
+                });
+                if (sum <= minStock) {
+                    $(".body").css("background-color", "red");
+                } else {
+                    $(".body").css("background-color", "");
+                }
             });
-           
+    
         });
     </script>
 }

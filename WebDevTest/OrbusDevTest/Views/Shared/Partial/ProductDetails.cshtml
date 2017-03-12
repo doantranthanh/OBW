@@ -1,31 +1,36 @@
 ﻿@model OrbusDevTest.DataAccess.Models.Product
 
-<fieldset>
-    <legend>Product</legend>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.ProductKey)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ProductKey)
-    </div>
+<tr>
+    <td>Product - @Html.Raw(HttpUtility.HtmlDecode(Model.Name))</td>
+    <td>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.ProductKey)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.ProductKey)
+        </div>
+    </td>
+    <td>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Name)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Name)
+        </div>
+    </td>
+    <td name="stock" class="stock">
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.StockLevel)
+        </div>
+        <div class="display-field stockLevel">
+            @Html.DisplayFor(model => model.StockLevel)
+        </div>
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new {id = Model.ProductKey})
+        @Html.ActionLink("Details", "Details", new {id = Model.ProductKey})
+    </td>
+</tr>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
-    </div>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.StockLevel)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.StockLevel)
-    </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductKey })
-    @Html.ActionLink("Details", "Details", new { id = Model.ProductKey }) ||
-    @Html.ActionLink("Back to List", "Index")
-</p>
