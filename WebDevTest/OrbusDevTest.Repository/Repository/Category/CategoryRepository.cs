@@ -37,19 +37,23 @@ namespace OrbusDevTest.DataAccess.Repository.Category
 
         public IEnumerable<Models.Category> GetCategories()
         {
-            var dimProductSubCategory = _oaService.GetCategories();
-            return (from category in dimProductSubCategory
-                from subcategory in category.DimProductSubcategories
-                select new Models.Category
-                {
-                    Id = subcategory.ProductSubcategoryKey, Name = subcategory.EnglishProductSubcategoryName
-                }).ToList();
+            var dimProductCategories = _oaService.GetCategories();
+            return dimProductCategories.Select(dimProduct => new Models.Category
+            {
+                Name = dimProduct.EnglishProductCategoryName,
+                Id = dimProduct.ProductCategoryKey
+            }).ToList();
         }
 
         public IEnumerable<Models.Category> GetSubCategories(int categoryId)
         {
-            // TODO: Get sub categories by category id from OAService and map (see mapping above) to the Category client Model (OAService Method: GetSubCategories)
-            throw new NotImplementedException();
+
+            var dimProductSubCategories = _oaService.GetSubCategories(categoryId);
+            return dimProductSubCategories.Select(dimSubProduct => new Models.Category
+            {
+                Name = dimSubProduct.EnglishProductSubcategoryName,
+                Id = dimSubProduct.ProductSubcategoryKey
+            }).ToList();
         }
     }
 }
