@@ -6,6 +6,7 @@ using NUnit.Framework;
 using OrbusDevTest.DataAccess;
 using OrbusDevTest.DataAccess.Models;
 using OrbusDevTest.DataAccess.OAService;
+using OrbusDevTest.DataAccess.Repository.Product;
 
 namespace ODT.DataAccessTests.ProductDataAccessTests
 {

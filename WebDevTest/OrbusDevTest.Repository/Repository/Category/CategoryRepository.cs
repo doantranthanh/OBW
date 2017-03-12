@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using OrbusDevTest.DataAccess.Category;
+using OrbusDevTest.DataAccess.OAService;
 
-namespace OrbusDevTest.DataAccess.Category
+namespace OrbusDevTest.DataAccess.Repository.Category
 {
     public class CategoryRepository : ICategoryRepository
     {
@@ -24,10 +27,23 @@ namespace OrbusDevTest.DataAccess.Category
          * Don't spend time implementing a 3rd part mapping framework, but try to use Linq if you can
          */
 
+        private readonly IOAService _oaService;
+        public CategoryRepository(IOAService oaService)
+        {
+            if (oaService == null)
+                throw new ArgumentNullException("oaService");
+            _oaService = oaService;
+        }
+
         public IEnumerable<Models.Category> GetCategories()
         {
-            // TODO: Get categories from OAService and map (see mapping above) to the Category client Model
-            throw new NotImplementedException();
+            var dimProductSubCategory = _oaService.GetCategories();
+            return (from category in dimProductSubCategory
+                from subcategory in category.DimProductSubcategories
+                select new Models.Category
+                {
+                    Id = subcategory.ProductSubcategoryKey, Name = subcategory.EnglishProductSubcategoryName
+                }).ToList();
         }
 
         public IEnumerable<Models.Category> GetSubCategories(int categoryId)

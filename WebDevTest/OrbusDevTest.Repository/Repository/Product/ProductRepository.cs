@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using OrbusDevTest.DataAccess.Models;
 using OrbusDevTest.DataAccess.OAService;
 
-namespace OrbusDevTest.DataAccess
+namespace OrbusDevTest.DataAccess.Repository.Product
 {
     public class ProductRepository : IProductRepository
     {
@@ -30,19 +29,19 @@ namespace OrbusDevTest.DataAccess
          * Don't spend time implementing a 3rd part mapping framework, but try to use Linq if you can
          */
 
-        public IEnumerable<Product> GetProducts()
+        public IEnumerable<Models.Product> GetProducts()
         {
             var dimProducts = _oaService.GetProducts();
-            return dimProducts.Select(dimProduct => new Product
+            return dimProducts.Select(dimProduct => new Models.Product
             {
                 Name = dimProduct.EnglishProductName, ProductKey = dimProduct.ProductKey, StockLevel = dimProduct.SafetyStockLevel
             }).ToList();
         }
 
-        public Product GetProduct(int id)
+        public Models.Product GetProduct(int id)
         {
             var dimProduct = _oaService.GetProduct(id);
-            return new Product
+            return new Models.Product
             {
                 Name = dimProduct.EnglishProductName,
                 ProductKey = dimProduct.ProductKey,
@@ -50,7 +49,7 @@ namespace OrbusDevTest.DataAccess
             };
         }
 
-        public bool UpdateProduct(Product product)
+        public bool UpdateProduct(Models.Product product)
         {
             if(product == null)
                 throw new ArgumentNullException("product");
@@ -64,10 +63,10 @@ namespace OrbusDevTest.DataAccess
             return productId > 0;
         }
 
-        public IEnumerable<Product> GetProductsBySubCateogoryId(int subCategoryId)
+        public IEnumerable<Models.Product> GetProductsBySubCateogoryId(int subCategoryId)
         {
             var dimProducts = _oaService.GetProductsbySubCategoryId(subCategoryId);
-            return dimProducts.Select(dimProduct => new Product
+            return dimProducts.Select(dimProduct => new Models.Product
             {
                 Name = dimProduct.EnglishProductName,
                 ProductKey = dimProduct.ProductKey,

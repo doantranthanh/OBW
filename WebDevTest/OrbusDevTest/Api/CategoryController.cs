@@ -2,6 +2,7 @@
 using System.Web.Http;
 using OrbusDevTest.DataAccess.Category;
 using OrbusDevTest.DataAccess.Models;
+using OrbusDevTest.DataAccess.Repository.Category;
 
 namespace OrbusDevTest.Api
 {

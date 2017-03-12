@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryDataAccessTests\CategoryRepositoryShould.cs" />
     <Compile Include="ProductDataAccessTests\ProductRepositoryShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
