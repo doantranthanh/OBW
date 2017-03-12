@@ -49,56 +49,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProductDataAccessTests\ProductRepositoryShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\OAService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Service References\OAService\OAService.wsdl" />
-    <None Include="Service References\OAService\OAService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\OAService\OAService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\OAService\OAService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\OAService\ODT.DataAccessTests.OAService.DimProduct.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\OAService\ODT.DataAccessTests.OAService.DimProductCategory.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\OAService\ODT.DataAccessTests.OAService.DimProductSubcategory.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\OAService\" />
+    <ProjectReference Include="..\OrbusDevTest.Repository\OrbusDevTest.DataAccess.csproj">
+      <Project>{b6a2276a-adb7-4226-88bb-28301be737ab}</Project>
+      <Name>OrbusDevTest.DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\OAService\OAService.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\OAService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\OAService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\OAService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
