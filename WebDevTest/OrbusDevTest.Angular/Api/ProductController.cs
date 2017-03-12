@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using OrbusDevTest.DataAccess;
 using OrbusDevTest.DataAccess.Models;
+using OrbusDevTest.DataAccess.Repository.Product;
 
 namespace OrbusDevTest.Angular.Api
 {
@@ -10,22 +11,23 @@ namespace OrbusDevTest.Angular.Api
     {
         IProductRepository _repository;
 
-        public ProductController()
+        public ProductController(IProductRepository repository)
         {
-            _repository = new ProductRepository();
+            if(repository == null)
+                throw new ArgumentNullException("repository");
+            _repository = repository;
         }
 
         // GET api/Product/GetProductListBySubCategory/3
         public IEnumerable<Product> GetProductListBySubCategory(int id)
         {
-            // TODO: Get filtered products list
-            throw new NotImplementedException();
+            return _repository.GetProductsBySubCateogoryId(id);
         }
 
         [HttpPost]
         public Product Edit(Product product)
         {
-            // TODO: Update product to WebService
+            //_repository.UpdateProduct(product);
             throw new NotImplementedException();
         }
     }

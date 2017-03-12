@@ -1,35 +1,43 @@
 ﻿using System;
 using System.Web.Mvc;
+using OrbusDevTest.DataAccess;
 using OrbusDevTest.DataAccess.Models;
+using OrbusDevTest.Models;
 
 namespace OrbusDevTest.Controllers
 {
     public class ProductController : Controller
     {
         // TODO: Implement IProductRepository to interact with the repository
-        
+        private readonly IProductRepository _productRepository;
+
+        public ProductController(IProductRepository productRepository)
+        {
+            _productRepository = productRepository;
+        }
+
         //
         // GET: /Product/
         public ActionResult Index()
         {
-            // TODO: Get products (This view already exists)
-            return View();
+            var model = _productRepository.GetProducts();
+            return View(model);
         }
 
         //
         // GET: /Product/Details/5
         public ActionResult Details(int id)
         {
-            // TODO: Get product (Create details view)
-            return View();
+            var model = _productRepository.GetProduct(id);
+            return View(model);
         }
 
         //
         // GET: /Product/Edit/5
         public ActionResult Edit(int id)
         {
-            // TODO: Get productto update (Create edit view)
-            return View();
+            var model = _productRepository.GetProduct(id);
+            return View(model);
         }
 
         //
@@ -39,13 +47,16 @@ namespace OrbusDevTest.Controllers
         {
             try
             {
-                // TODO: Update product to OAServer
-
+                _productRepository.UpdateProduct(product);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                var errorModel = new ErrorViewModel
+                {
+                    ErrorMessage = ex.Message
+                };
+                return View("ErrorPage", errorModel);
             }
         }
 
@@ -53,8 +64,8 @@ namespace OrbusDevTest.Controllers
         // GET: /Product list
         public ActionResult GetProductListBySubCategory(int subCategoryId)
         {
-            // TODO: Get filtered products list
-            throw new NotImplementedException();
+            var model = _productRepository.GetProductsBySubCateogoryId(subCategoryId);
+            return View("SubCategory", model);
         }
     }
 }

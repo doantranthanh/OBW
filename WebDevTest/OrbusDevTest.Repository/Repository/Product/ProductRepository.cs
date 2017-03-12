@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using OrbusDevTest.DataAccess.Codes;
 using OrbusDevTest.DataAccess.OAService;
 
 namespace OrbusDevTest.DataAccess.Repository.Product
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly IOAService _oaService;
+        private readonly IOAServiceAgent _oaService;
 
-        public ProductRepository(IOAService oaService)
+        public ProductRepository(IOAServiceAgent oaService)
         {
             if(oaService == null)
                 throw new ArgumentNullException("oaService");

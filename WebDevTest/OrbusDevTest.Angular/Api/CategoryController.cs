@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using OrbusDevTest.DataAccess.Category;
 using OrbusDevTest.DataAccess.Models;
@@ -7,23 +8,25 @@ namespace OrbusDevTest.Angular.Api
 {
     public class CategoryController : ApiController
     {
-        ICategoryRepository _repository;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public CategoryController()
+        public CategoryController(ICategoryRepository categoryRepository)
         {
-            _repository = new CategoryRepository();
+            if(categoryRepository == null)
+                throw new ArgumentNullException("categoryRepository");
+            _categoryRepository = categoryRepository;
         }
 
         // GET api/Category
         public IEnumerable<Category> Get()
         {
-            return _repository.GetCategories();
+            return _categoryRepository.GetCategories();
         }
 
         // GET api/Category/GetSubCategories/5
         public IEnumerable<Category> GetSubCategories(int id)
         {
-            return _repository.GetSubCategories(id);
+            return _categoryRepository.GetSubCategories(id);
         }
     }
 }

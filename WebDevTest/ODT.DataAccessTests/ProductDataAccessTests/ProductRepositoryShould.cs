@@ -4,6 +4,7 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using OrbusDevTest.DataAccess;
+using OrbusDevTest.DataAccess.Codes;
 using OrbusDevTest.DataAccess.Models;
 using OrbusDevTest.DataAccess.OAService;
 using OrbusDevTest.DataAccess.Repository.Product;
@@ -14,13 +15,13 @@ namespace ODT.DataAccessTests.ProductDataAccessTests
     public class ProductRepositoryShould
     {
         private ProductRepository _productRepository;
-        private Mock<IOAService> _mockIOAService;
+        private Mock<IOAServiceAgent> _mockIOAService;
         private DimProduct[] _mockDimProducts = new DimProduct[3];
 
         [SetUp]
         public void SetUp()
         {
-            _mockIOAService = new Mock<IOAService>();
+            _mockIOAService = new Mock<IOAServiceAgent>();
             _productRepository = new ProductRepository(_mockIOAService.Object);
             _mockDimProducts[0] = new DimProduct()
             {

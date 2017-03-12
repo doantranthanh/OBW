@@ -46,6 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Codes\IOAServiceAgent.cs" />
+    <Compile Include="Codes\IWebServiceEndpointManager.cs" />
+    <Compile Include="Codes\OAServiceAgent.cs" />
+    <Compile Include="Codes\WebServiceEndpointManager.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

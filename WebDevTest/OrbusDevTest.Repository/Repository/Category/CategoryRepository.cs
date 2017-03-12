@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using OrbusDevTest.DataAccess.Category;
-using OrbusDevTest.DataAccess.OAService;
+using OrbusDevTest.DataAccess.Codes;
 
 namespace OrbusDevTest.DataAccess.Repository.Category
 {
@@ -27,8 +27,8 @@ namespace OrbusDevTest.DataAccess.Repository.Category
          * Don't spend time implementing a 3rd part mapping framework, but try to use Linq if you can
          */
 
-        private readonly IOAService _oaService;
-        public CategoryRepository(IOAService oaService)
+        private readonly IOAServiceAgent _oaService;
+        public CategoryRepository(IOAServiceAgent oaService)
         {
             if (oaService == null)
                 throw new ArgumentNullException("oaService");

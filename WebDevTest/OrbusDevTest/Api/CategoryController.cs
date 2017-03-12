@@ -2,17 +2,18 @@
 using System.Web.Http;
 using OrbusDevTest.DataAccess.Category;
 using OrbusDevTest.DataAccess.Models;
+using OrbusDevTest.DataAccess.OAService;
 using OrbusDevTest.DataAccess.Repository.Category;
 
 namespace OrbusDevTest.Api
 {
     public class CategoryController : ApiController
     {
-        ICategoryRepository _repository;
+        private readonly ICategoryRepository _repository;
 
-        public CategoryController()
+        public CategoryController(ICategoryRepository repository)
         {
-            _repository = new CategoryRepository();
+            _repository = repository;
         }
 
         // GET api/Category

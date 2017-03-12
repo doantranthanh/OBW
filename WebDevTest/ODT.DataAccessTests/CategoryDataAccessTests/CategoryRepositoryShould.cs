@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Moq;
 using NUnit.Framework;
+using OrbusDevTest.DataAccess.Codes;
 using OrbusDevTest.DataAccess.OAService;
 using OrbusDevTest.DataAccess.Repository.Category;
 
@@ -10,7 +11,7 @@ namespace ODT.DataAccessTests.CategoryDataAccessTests
     public class CategoryRepositoryShould
     {
         private CategoryRepository _categoryRepository;
-        private Mock<IOAService> _mockIOAService;
+        private Mock<IOAServiceAgent> _mockIOAService;
         private DimProductCategory[] _mockDimProductCategories = new DimProductCategory[2];
         private DimProductCategory _dimProductCategoryOne;
         private DimProductCategory _dimProductCategoryTwo;
@@ -18,7 +19,7 @@ namespace ODT.DataAccessTests.CategoryDataAccessTests
         [SetUp]
         public void SetUp()
         {
-            _mockIOAService = new Mock<IOAService>();
+            _mockIOAService = new Mock<IOAServiceAgent>();
             _categoryRepository = new CategoryRepository(_mockIOAService.Object);
 
             _dimProductCategoryOne = new DimProductCategory()
