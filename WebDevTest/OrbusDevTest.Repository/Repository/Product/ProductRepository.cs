@@ -33,7 +33,7 @@ namespace OrbusDevTest.DataAccess
         public IEnumerable<Product> GetProducts()
         {
             var dimProducts = _oaService.GetProducts();
-            return dimProducts.Select(dimProduct => new Product()
+            return dimProducts.Select(dimProduct => new Product
             {
                 Name = dimProduct.EnglishProductName, ProductKey = dimProduct.ProductKey, StockLevel = dimProduct.SafetyStockLevel
             }).ToList();
@@ -41,20 +41,38 @@ namespace OrbusDevTest.DataAccess
 
         public Product GetProduct(int id)
         {
-            // TODO: Get Product from OAService and map (see mapping above) to the Product client Model
-            throw new NotImplementedException();
+            var dimProduct = _oaService.GetProduct(id);
+            return new Product
+            {
+                Name = dimProduct.EnglishProductName,
+                ProductKey = dimProduct.ProductKey,
+                StockLevel = dimProduct.SafetyStockLevel
+            };
         }
 
         public bool UpdateProduct(Product product)
         {
-            // TODO: Update Product (Name and StockLevel properties only) and map To DimProduct (OAServer class) (see mapping above)
-            throw new NotImplementedException();
+            if(product == null)
+                throw new ArgumentNullException("product");
+            var dimProduct = new DimProduct
+            {
+                EnglishProductName = product.Name,
+                ProductKey = product.ProductKey,
+                SafetyStockLevel = product.StockLevel
+            };
+            var productId =_oaService.UpdateProduct(dimProduct);
+            return productId > 0;
         }
 
         public IEnumerable<Product> GetProductsBySubCateogoryId(int subCategoryId)
         {
-            // TODO: Get Products from OAService filtered by sub category id and map (see mapping above) to the Product client Model (OAServer method: GetProductsbySubCategoryId)
-            throw new NotImplementedException();
+            var dimProducts = _oaService.GetProductsbySubCategoryId(subCategoryId);
+            return dimProducts.Select(dimProduct => new Product
+            {
+                Name = dimProduct.EnglishProductName,
+                ProductKey = dimProduct.ProductKey,
+                StockLevel = dimProduct.SafetyStockLevel
+            }).ToList();
         }
     }
 }

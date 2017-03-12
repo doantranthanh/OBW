@@ -4,6 +4,7 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using OrbusDevTest.DataAccess;
+using OrbusDevTest.DataAccess.Models;
 using OrbusDevTest.DataAccess.OAService;
 
 namespace ODT.DataAccessTests.ProductDataAccessTests
@@ -41,7 +42,7 @@ namespace ODT.DataAccessTests.ProductDataAccessTests
         }
 
         [Test]
-        public void Get_Products_From_SQL_DataBase_Throuth_OAService()
+        public void Be_Able_To_Get_Products_From_SQL_DataBase_Throuth_OAService()
         {
             // Arrange
             _mockIOAService.Setup(x => x.GetProducts()).Returns(_mockDimProducts);
@@ -51,6 +52,58 @@ namespace ODT.DataAccessTests.ProductDataAccessTests
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(3,result.Count());
+            Assert.AreEqual(_mockDimProducts[0].EnglishProductName, result.First().Name);
+            Assert.AreEqual(_mockDimProducts[1].ProductKey, result.ElementAt(1).ProductKey);
+            Assert.AreEqual(_mockDimProducts[2].SafetyStockLevel, result.ElementAt(2).StockLevel);
+        }
+
+        [Test]
+        public void Be_Able_To_Get_Products_By_Id_From_SQL_DataBase_Throuth_OAService()
+        {
+            // Arrange
+            _mockIOAService.Setup(x => x.GetProduct(It.IsAny<int>())).Returns(_mockDimProducts[0]);
+            // Act
+            var result = _productRepository.GetProduct(1);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(_mockDimProducts[0].EnglishProductName, result.Name);
+            Assert.AreEqual(_mockDimProducts[0].ProductKey, result.ProductKey);
+            Assert.AreEqual(_mockDimProducts[0].SafetyStockLevel, result.StockLevel);
+        }
+
+        [Test]
+        public void Be_Able_To_Update_Products_By_To_SQL_DataBase_Throuth_OAService()
+        {
+            // Arrange
+            var updatedProduct = new Product()
+            {
+                Name = "Beer",
+                ProductKey = 4,
+                StockLevel = 555
+            };
+            _mockIOAService.Setup(x => x.UpdateProduct(It.IsAny<DimProduct>())).Returns(updatedProduct.ProductKey);
+
+            // Act
+            var result = _productRepository.UpdateProduct(updatedProduct);
+
+            // Assert
+ 
+            Assert.AreEqual(true, result);
+        }
+
+        [Test]
+        public void Be_Able_To_Get_Products_By_SubCateogory_Id_From_SQL_DataBase_Throuth_OAService()
+        {
+            // Arrange
+            _mockIOAService.Setup(x => x.GetProductsbySubCategoryId(It.IsAny<int>())).Returns(_mockDimProducts);
+
+            // Act
+            var result = _productRepository.GetProductsBySubCateogoryId(1);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(3, result.Count());
             Assert.AreEqual(_mockDimProducts[0].EnglishProductName, result.First().Name);
             Assert.AreEqual(_mockDimProducts[1].ProductKey, result.ElementAt(1).ProductKey);
             Assert.AreEqual(_mockDimProducts[2].SafetyStockLevel, result.ElementAt(2).StockLevel);
