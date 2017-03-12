@@ -30,6 +30,43 @@
 
 @section Scripts {
     <script type="text/javascript">
+        $(document).ready(function () {
+              
 
+            var apiurl = "http://localhost:37386/api/category";
+
+            $.ajax({
+                url: apiurl,
+                type: 'GET',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var appenddata1 = "";
+                    for (var i = 0; i < data.length; i++) {
+                        appenddata1 += "<option value = '" + data[i].Name + " '>" + data[i].Id + " </option>";
+                    }
+                    $("#category").append(appenddata1);
+                }
+            });
+
+            $("#category").change(function () {
+                var categoryId = $("#category").val();
+                $.ajax({
+                    url: apiurl + "/GetSubCategories/?categoryId=" + categoryId,
+                    type: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        var appenddata1 = "";
+                        for (var i = 0; i < data.length; i++) {
+                            appenddata1 += "<option value = '" + data[i].Name + " '>" + data[i].Id + " </option>";
+                        }
+                        $("#subcategory").append(appenddata1);
+                    }
+                });
+            });
+
+           
+        });
     </script>
 }

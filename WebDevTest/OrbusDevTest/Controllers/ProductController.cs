@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using OrbusDevTest.DataAccess;
 using OrbusDevTest.DataAccess.Models;
@@ -10,17 +11,33 @@ namespace OrbusDevTest.Controllers
     {
         // TODO: Implement IProductRepository to interact with the repository
         private readonly IProductRepository _productRepository;
+       
 
         public ProductController(IProductRepository productRepository)
         {
-            _productRepository = productRepository;
+            _productRepository = productRepository;         
         }
 
         //
         // GET: /Product/
         public ActionResult Index()
         {
-            var model = _productRepository.GetProducts();
+            //var model = _productRepository.GetProducts();     
+            var model = new List<Product>()
+            {
+                new Product()
+                {
+                    Name = "P1",
+                    ProductKey = 1,
+                    StockLevel = 123
+                },
+                new Product()
+                {
+                    Name = "P2",
+                    ProductKey = 2,
+                    StockLevel = 123
+                }
+            };   
             return View(model);
         }
 
@@ -28,7 +45,7 @@ namespace OrbusDevTest.Controllers
         // GET: /Product/Details/5
         public ActionResult Details(int id)
         {
-            var model = _productRepository.GetProduct(id);
+            var model = _productRepository.GetProduct(id);          
             return View(model);
         }
 

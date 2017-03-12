@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using OrbusDevTest.DataAccess.Category;
+using OrbusDevTest.DataAccess.Codes;
 using OrbusDevTest.DataAccess.Models;
-using OrbusDevTest.DataAccess.OAService;
 using OrbusDevTest.DataAccess.Repository.Category;
 
 namespace OrbusDevTest.Api
@@ -16,6 +16,11 @@ namespace OrbusDevTest.Api
             _repository = repository;
         }
 
+        public CategoryController()
+        {
+            _repository = new CategoryRepository(new OAServiceAgent(new WebServiceEndpointManager()));
+        }
+
         // GET api/Category
         public IEnumerable<Category> Get()
         {
@@ -25,7 +30,7 @@ namespace OrbusDevTest.Api
         // GET api/Category/GetSubCategories/5
         public IEnumerable<Category> GetSubCategories(int categoryId)
         {
-            return _repository.GetSubCategories(categoryId);
+            return _repository.GetSubCategories(categoryId);         
         }
     }
 }

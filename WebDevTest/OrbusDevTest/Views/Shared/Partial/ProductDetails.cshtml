@@ -4,27 +4,28 @@
     <legend>Product</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.ProductKey)
+        @Html.DisplayNameFor(model => model.ProductKey)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.ProductKey)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
+        @Html.DisplayNameFor(model => model.Name)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Name)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.StockLevel)
+        @Html.DisplayNameFor(model => model.StockLevel)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.StockLevel)
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductKey })
+    @Html.ActionLink("Details", "Details", new { id = Model.ProductKey }) ||
     @Html.ActionLink("Back to List", "Index")
 </p>
